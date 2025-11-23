@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Task Project</title>
+
+  <style>
+    /* ====== Base ====== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #333;
+      height: 100vh;
+      /* 🌈 Choose one background theme */
+      background: linear-gradient(to right, #001f3f, #f5f5dc);  /* navy blue → cream */
+      /* background: linear-gradient(to right, #064e3b, #f5f5dc);  dark green → beige */
+      background-attachment: fixed;
+    }
+
+    /* ====== Navbar ====== */
+    nav {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 12px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Left side (brand) */
+    .brand {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: white;
+      letter-spacing: 1px;
+    }
+
+    /* Right side (menu) */
+    .nav-links {
+      list-style: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links a, .dropbtn {
+      display: inline-block;
+      color: white;
+      text-decoration: none;
+      padding: 10px 16px;
+      font-weight: 500;
+      transition: background 0.2s ease;
+    }
+
+    .nav-links a:hover, .dropdown:hover .dropbtn {
+      background-color: rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+    }
+
+    /* ====== Dropdown ====== */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: rgba(255, 255, 255, 0.95);
+      min-width: 160px;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      margin-top: 6px;
+    }
+
+    .dropdown-content a {
+      color: #333;
+      padding: 10px 14px;
+      text-decoration: none;
+      display: block;
+      border-radius: 6px;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #eaeaea;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* ====== Hero Section ====== */
+    .hero {
+      text-align: center;
+      margin-top: 100px;
+      
+    }
+
+    .hero h1 {
+      color: #001f3f;
+      margin-bottom: 15px;
+      font-size: 2rem;
+    }
+
+    .hero p {
+      color: #444;
+      font-size: 1.1rem;
+    }
+
+    /* ====== Footer ====== */
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        text-align: center;
+      }
+      .nav-links {
+        flex-direction: column;
+      }
+      .hero {
+        width: 90%;
+        padding: 40px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  
+  <nav>
+    <div class="brand">ABC SCHOOL</div>
+
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+
+      <li class="dropdown">
+        <a href="#" class="dropbtn">Register ▾</a>
+        <div class="dropdown-content">
+          <a href="{% url 'student_register' %}">Student</a>
+          <a href="{% url 'teacher_register' %}">Teacher</a>
+        </div>
+      </li>
+
+      <li class="dropdown">
+        <a href="#" class="dropbtn">Login ▾</a>
+        <div class="dropdown-content">
+          <a href="{% url 'login' %}">Student</a>
+          <a href="{% url 'login_Teacher' %}">Teacher</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- ====== Hero Section ====== -->
+  <div class="hero">
+    <h1>Welcome to School Portal</h1>
+    
+  </div>
+
+  <!-- ====== Footer ====== -->
+  <!-- <footer>
+    &copy; 2025 Task Project. All rights reserved.
+  </footer> -->
+
+</body>
+</html>

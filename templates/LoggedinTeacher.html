@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #064e3b, #f5f5dc);
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 12px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .brand {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: white;
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links a, .dropbtn {
+      display: inline-block;
+      color: white;
+      text-decoration: none;
+      padding: 10px 16px;
+      font-weight: 500;
+      transition: background 0.2s ease;
+    }
+
+    .nav-links a:hover, .dropdown:hover .dropbtn {
+      background-color: rgba(255,255,255,0.15);
+      border-radius: 6px;
+    }
+
+    /* Dropdown styling */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: rgba(255,255,255,0.95);
+      min-width: 200px;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      margin-top: 6px;
+      z-index: 100;
+      padding: 6px 0;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-content a {
+      color: #333;
+      padding: 10px 14px;
+      text-decoration: none;
+      display: block;
+      border-radius: 6px;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #eaeaea;
+    }
+
+    /* Submenu for Students (vertical below) */
+    .submenu {
+      position: relative;
+    }
+
+    .submenu-content {
+      display: none;
+      background-color: rgba(255,255,255,0.95);
+      border-radius: 8px;
+      margin-top: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .submenu:hover .submenu-content {
+      display: block;
+    }
+
+    .submenu-content a {
+      color: #333;
+      padding: 10px 14px;
+      display: block;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+
+    .submenu-content a:hover {
+      background-color: #eaeaea;
+    }
+
+    /* Main container */
+    .container {
+      max-width: 600px;
+      margin: 80px auto;
+      background-color: rgba(255,255,255,0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    h2 {
+      color: #064e3b;
+      margin-bottom: 20px;
+    }
+
+    /* Buttons */
+    a.button {
+      display: inline-block;
+      margin: 12px;
+      padding: 12px 24px;
+      background-color: #064e3b;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.2s ease;
+    }
+
+    a.button:hover {
+      background-color: #0a6b50;
+    }
+
+    /* Button dropdown (Students) */
+    .btn-dropdown {
+      display: inline-block;
+      position: relative;
+    }
+
+    .btn-dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: rgba(255,255,255,0.95);
+      min-width: 180px;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      z-index: 100;
+      margin-top: 4px;
+    }
+
+    .btn-dropdown-content a {
+      display: block;
+      color: #333;
+      padding: 10px 14px;
+      text-decoration: none;
+      border-radius: 6px;
+    }
+
+    .btn-dropdown-content a:hover {
+      background-color: #eaeaea;
+    }
+
+    .btn-dropdown:hover .btn-dropdown-content {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="brand">ABC SCHOOL</div>
+    <ul class="nav-links">
+      <li class="dropdown">
+        <a href="#" class="dropbtn">Options ▾</a>
+        <div class="dropdown-content">
+          <a href="{% url 'viewprofileTeacher' %}">Profile View</a>
+          <a href="{% url 'updateteacher' teacher.id %}">Edit Profile</a>
+          <a href="{% url 'teacher_leaveview' %}">Leave Applications</a>
+
+          <!-- Students dropdown -->
+          <div class="submenu">
+            <a href="#" class="dropbtn">Students ▾</a>
+            <div class="submenu-content">
+              <a href="{% url 'approved' %}">View Leave Details</a>
+            </div>
+          </div>
+
+          <a href="{% url 'deleteteacher' teacher.id %}">Delete Profile</a>
+          <a href="{% url 'logoutteacher' %}">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- CONTENT -->
+  <div class="container">
+    <h2>Welcome, {{ teacher.name }}</h2>
+    <p>Department: {{ teacher.department }}</p>
+
+    <a class="button" href="{% url 'viewprofileTeacher' %}">View Profile</a>
+    <a class="button" href="{% url 'updateteacher' teacher.id %}">Edit Profile</a>
+    <a class="button" href="{% url 'teacher_leaveview' %}">Leave Applications</a>
+
+    <!-- Students button dropdown -->
+    <div class="btn-dropdown">
+      <a class="button" href="#">Students ▾</a>
+      <div class="btn-dropdown-content">
+        <a href="{% url 'approved' %}">View Leave Details</a>
+      </div>
+    </div>
+
+    <a class="button" href="{% url 'deleteteacher' teacher.id %}">Delete Profile</a>
+    <a class="button" href="{% url 'logoutteacher' %}">Logout</a>
+  </div>
+
+</body>
+</html>

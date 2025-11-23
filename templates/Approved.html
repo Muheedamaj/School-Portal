@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Approved Leaves</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #064e3b, #f5f5dc);
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 700px;
+      margin: 60px auto;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+    h2 {
+      text-align: center;
+      color: #064e3b;
+      margin-bottom: 20px;
+    }
+    .leave-entry { border-bottom: 1px solid #ddd; padding: 12px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Approved Leave Applications</h2>
+
+    {% if leaves %}
+      {% for leave in leaves %}
+        <div class="leave-entry">
+          <p><strong>Name:</strong> {{ leave.name }}</p>
+          <p><strong>Roll No:</strong> {{ leave.rollno }}</p>
+          <p><strong>Reason:</strong> {{ leave.reason }}</p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p style="text-align:center; color:#666;">No approved leave applications found.</p>
+    {% endif %}
+
+  </div>
+</body>
+</html>

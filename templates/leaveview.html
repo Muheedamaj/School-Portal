@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leave Applications</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #064e3b, #f5f5dc);
+  margin: 0;
+  padding: 0;
+}
+.container {
+  max-width: 700px;
+  margin: 60px auto;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+h2 {
+  text-align: center;
+  color: #064e3b;
+  margin-bottom: 20px;
+}
+.leave-entry {
+  border-bottom: 1px solid #ccc;
+  padding: 12px 0;
+}
+.leave-entry:last-child {
+  border-bottom: none;
+}
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+button {
+  flex: 1;
+  padding: 8px 0;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  color: white;
+}
+button.approve {
+  background-color: #16a34a; /* green */
+}
+button.approve:hover {
+  background-color: #15803d;
+}
+button.reject {
+  background-color: #dc2626; /* red */
+}
+button.reject:hover {
+  background-color: #b91c1c;
+}
+.status {
+  font-weight: bold;
+  margin-top: 4px;
+}
+.status.approved { color: #16a34a; }
+.status.rejected { color: #dc2626; }
+.status.pending { color: #d97706; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>
+  {% if student %}
+    Leave Applications of {{ student.name }}
+  {% elif teacher %}
+    Leave Applications — Department: {{ teacher.department }}
+  {% else %}
+    Leave Applications
+  {% endif %}
+  </h2>
+
+  {% if leaves %}
+    {% for leave in leaves %}
+      <div class="leave-entry">
+        <p><strong>Name:</strong> {{ leave.name }}</p>
+        <p><strong>Roll No:</strong> {{ leave.rollno }}</p>
+        <p><strong>Reason:</strong> {{ leave.reason }}</p>
+        <p class="status {{ leave.status|lower }}"><strong>Status:</strong> {{ leave.status }}</p>
+
+        {% if leave.status == "Pending" %}
+          <div class="buttons">
+            <form method="POST" action="{% url 'approve_leave' leave.pk %}">
+              {% csrf_token %}
+              <button type="submit" class="approve">Approve✅ </button>
+            </form>
+            <form method="POST" action="{% url 'reject_leave' leave.pk %}">
+              {% csrf_token %}
+              <button type="submit" class="reject">Reject❌ </button>
+            </form>
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No leave applications found.</p>
+  {% endif %}
+</div>
+</body>
+</html>
